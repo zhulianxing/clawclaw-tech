@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /apk/
+Disallow: /chat.html
+Disallow: /dapp.html
+Disallow: /pay-demo.html
+Disallow: /hackathon.html
+
+Sitemap: https://clawclaw.tech/sitemap.xml
