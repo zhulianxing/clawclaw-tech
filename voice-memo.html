@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<title>密探 MiBao · 远程录音转文字 · 邮件回传</title>
+<meta name="description" content="密探 MiBao — 远程录音转文字应用，Whisper 本地离线转录，VAD 自动录音，SMTP 邮件回传，无需服务器。¥99 买断 / 14 USDT。">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0A0A0B;--card:#16161A;--card-2:#1C1C21;--border:#27272A;
+  --text:#F4F4F5;--text-2:#A1A1AA;--text-3:#71717A;
+  --accent:#6366F1;--accent-2:#22D3EE;--radius:20px;--radius-sm:12px
+}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.container{max-width:1080px;margin:0 auto;padding:0 24px}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(10,10,11,.78);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:1080px;margin:0 auto;padding:0 24px}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;letter-spacing:.5px;color:var(--text-2)}
+.nav-logo span{color:var(--text)}
+.nav-cta{padding:8px 18px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff!important;font-size:13px;font-weight:700;transition:all .3s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(99,102,241,.35)}
+
+.hero{position:relative;padding:160px 0 80px;text-align:center;overflow:hidden}
+.hero-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(99,102,241,.12),transparent 70%);pointer-events:none}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:100px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);color:var(--accent-2);font-size:13px;font-weight:600;margin-bottom:24px;letter-spacing:.5px}
+.hero h1{font-size:48px;font-weight:800;letter-spacing:-1px;margin-bottom:18px;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:18px;color:var(--text-2);max-width:680px;margin:0 auto 36px}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{display:inline-block;padding:14px 32px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff!important;font-size:15px;font-weight:600;transition:all .3s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(99,102,241,.4)}
+.btn-secondary{display:inline-block;padding:14px 32px;border-radius:var(--radius-sm);background:var(--card);border:1px solid var(--border);color:var(--text)!important;font-size:15px;font-weight:600}
+
+.features{padding:80px 0}
+.section-title{text-align:center;margin-bottom:48px}
+.section-title h2{font-size:36px;font-weight:800;letter-spacing:-.5px;margin-bottom:12px}
+.section-title p{color:var(--text-2);font-size:16px}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px 28px;transition:all .3s}
+.feature-card:hover{transform:translateY(-4px);border-color:rgba(99,102,241,.3);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.feature-icon{font-size:36px;margin-bottom:16px}
+.feature-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
+.feature-card p{color:var(--text-2);font-size:14px;line-height:1.6}
+
+.pricing{padding:80px 0;background:linear-gradient(180deg,transparent,rgba(99,102,241,.04),transparent)}
+.price-card{max-width:480px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:48px 36px;text-align:center;position:relative;overflow:hidden}
+.price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.price-badge{display:inline-block;padding:6px 16px;border-radius:100px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);color:var(--accent-2);font-size:12px;font-weight:600;margin-bottom:20px}
+.price-amount{font-size:56px;font-weight:800;letter-spacing:-2px;margin-bottom:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.price-amount small{font-size:18px;font-weight:600;color:var(--text-2);-webkit-text-fill-color:var(--text-2);margin-left:8px}
+.price-desc{color:var(--text-2);font-size:14px;margin-bottom:32px}
+.price-features{text-align:left;margin-bottom:32px}
+.price-features li{list-style:none;padding:10px 0;color:var(--text);font-size:14px;border-bottom:1px solid var(--border)}
+.price-features li:last-child{border-bottom:none}
+.price-features li::before{content:'✓ ';color:var(--accent-2);font-weight:700}
+
+.faq{padding:80px 0}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:24px 28px;margin-bottom:16px}
+.faq-item h4{font-size:16px;font-weight:700;margin-bottom:8px}
+.faq-item p{color:var(--text-2);font-size:14px;line-height:1.6}
+
+.cta{padding:80px 0;text-align:center}
+.cta-box{background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(34,211,238,.08));border:1px solid rgba(99,102,241,.2);border-radius:var(--radius);padding:48px 32px}
+.cta-box h2{font-size:32px;font-weight:800;letter-spacing:-.5px;margin-bottom:12px}
+.cta-box p{color:var(--text-2);font-size:16px;margin-bottom:32px}
+
+.footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;color:var(--text-3);font-size:13px}
+.footer-links{margin-bottom:12px}
+.footer-links a{margin:0 12px;color:var(--text-2)}
+.footer-links a:hover{color:var(--accent-2)}
+
+@media (max-width:768px){
+  .hero h1{font-size:36px}
+  .hero p{font-size:16px}
+  .section-title h2{font-size:28px}
+  .price-amount{font-size:48px}
+}
+</style>
+<link rel="stylesheet" href="/assets/buy-modal.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">🎙️ <span>密探 MiBao</span></a>
+    <a href="#" class="nav-cta clawclaw-buy-btn" data-product="voice-memo">⚡ 立即购买</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-eyebrow">🎙️ 远程录音 · 本地转录 · 邮件回传</div>
+    <h1>密探 MiBao</h1>
+    <p>基于 Whisper 本地离线转录的远程录音转文字应用。VAD 自动检测语音活动，SMTP 直发邮件回传，零服务器依赖，隐私安全。</p>
+    <div class="hero-cta">
+      <button class="btn-primary clawclaw-buy-btn" data-product="voice-memo" style="border:none;cursor:pointer;font-size:16px;padding:16px 36px;">⚡ 立即购买 ¥99 / 14 USDT</button>
+      <a href="/apk/voice-memo.apk" class="btn-secondary">⬇ 下载 App</a>
+    </div>
+  </div>
+</section>
+
+<section class="features container">
+  <div class="section-title">
+    <h2>核心功能</h2>
+    <p>用最少的硬件，做最专业的事</p>
+  </div>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🎤</div>
+      <h3>VAD 自动录音</h3>
+      <p>基于 WebRTC VAD 模型自动检测语音活动，无需手动启停。静默 1.5 秒自动分段，避免长录音空载。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🧠</div>
+      <h3>Whisper 本地转录</h3>
+      <p>集成 whisper-tiny 模型，完全离线运行，无需联网。语音转文字准确率 85%+，支持中英文混合识别。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📧</div>
+      <h3>SMTP 邮件回传</h3>
+      <p>SSL 465 直发，支持 QQ/163/Gmail/腾讯企业邮箱。录音时长 + 转写结果一键发送，零服务器依赖。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <h3>隐私安全</h3>
+      <p>录音不离开设备，转录不依赖云端，邮箱凭据本地加密存储。完全符合 GDPR / 个保法要求。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>低功耗运行</h3>
+      <p>后台 Service 持续监听，待机功耗 &lt; 1%。支持充电时自动启动，24 小时无人值守。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3>历史记录</h3>
+      <p>本地 SQLite 存储所有录音 + 转写结果，可按时间检索。支持重新发送邮件、删除、导出。</p>
+    </div>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="container">
+    <div class="price-card">
+      <div class="price-badge">🎉 限时买断价</div>
+      <div class="price-amount">¥99<small>或 14 USDT</small></div>
+      <div class="price-desc">一次购买，永久使用 · 无订阅费</div>
+      <ul class="price-features">
+        <li>Whisper 本地转录（无云端依赖）</li>
+        <li>VAD 自动语音活动检测</li>
+        <li>SMTP 邮件直发回传</li>
+        <li>历史记录本地存储</li>
+        <li>支持 QQ/163/Gmail/企业邮箱</li>
+        <li>永久免费升级</li>
+      </ul>
+      <button class="btn-primary clawclaw-buy-btn" data-product="voice-memo" style="width:100%;border:none;cursor:pointer;font-size:16px;padding:16px;">⚡ 立即购买激活码</button>
+      <a href="/apk/voice-memo.apk" class="btn-secondary" style="display:block;margin-top:12px;text-align:center">⬇ 先下载试用</a>
+    </div>
+  </div>
+</section>
+
+<section class="faq container">
+  <div class="section-title">
+    <h2>常见问题</h2>
+  </div>
+  <div class="faq-item">
+    <h4>购买后如何激活？</h4>
+    <p>支付成功后，激活码会显示在购买页面（可一键复制），同时发送到您输入的邮箱。打开 App → 进入设置页 → 点击「我已有激活码」→ 输入激活码即可。</p>
+  </div>
+  <div class="faq-item">
+    <h4>支持哪些支付方式？</h4>
+    <p>USDT (TRC-20)：14 USDT 转账到指定钱包地址，区块链自动确认（约 1-3 分钟）。微信/支付宝：即将上线。</p>
+  </div>
+  <div class="faq-item">
+    <h4>转录准确率如何？</h4>
+    <p>使用 whisper-tiny 模型，安静环境下中文识别准确率 85%+。如需更高准确率，可手动编辑修正后发送。</p>
+  </div>
+  <div class="faq-item">
+    <h4>支持哪些邮箱？</h4>
+    <p>QQ 邮箱、163 邮箱、Gmail、腾讯企业邮箱（smtp.exmail.qq.com）。其他支持 SMTP SSL 465 的邮箱也可自定义配置。</p>
+  </div>
+</section>
+
+<section class="cta container">
+  <div class="cta-box">
+    <h2>🎙️ 密探 MiBao · 让录音自动转文字</h2>
+    <p>¥99 买断 · 永久使用 · 无订阅费</p>
+    <button class="btn-primary clawclaw-buy-btn" data-product="voice-memo" style="border:none;cursor:pointer;font-size:18px;padding:18px 44px;">⚡ 立即购买激活码</button>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/">ClawClaw.tech</a>
+    <a href="/apk/voice-memo.apk">下载 App</a>
+  </div>
+  <div>© 2026 ClawClaw.tech · 密探 MiBao</div>
+</footer>
+
+<script src="/assets/buy-modal.js" defer></script>
+</body>
+</html>

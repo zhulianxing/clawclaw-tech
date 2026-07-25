@@ -1,0 +1,374 @@
+/* ClawClaw.tech Buy Modal — 购买组件
+ * 深黑 + 靛蓝→青色渐变，与主站风格一致
+ * 零依赖，单文件 CSS
+ */
+
+/* 触发按钮：可被产品页任意元素挂上 class 触发 */
+.clawclaw-buy-btn {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6366F1 0%, #22D3EE 100%);
+  color: #fff !important;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 18px rgba(99, 102, 241, 0.35);
+  transition: transform .2s, box-shadow .2s;
+  text-decoration: none;
+  line-height: 1.4;
+}
+.clawclaw-buy-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.5);
+}
+.clawclaw-buy-btn:active { transform: translateY(0); }
+
+/* Modal 遮罩 */
+.ccbm-mask {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: none;
+  align-items: center; justify-content: center;
+  padding: 20px;
+  animation: ccpay-fade-in .25s ease;
+}
+.ccbm-mask.ccbm-show { display: flex; }
+@keyframes ccpay-fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* Modal 主体 */
+.ccbm-modal {
+  background: #16161A;
+  border: 1px solid #27272A;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 460px;
+  max-height: 92vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+  animation: ccpay-slide-up .3s cubic-bezier(.16, 1, .3, 1);
+}
+@keyframes ccpay-slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* 顶部渐变条 */
+.ccbm-modal::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366F1, #22D3EE);
+}
+
+/* 关闭按钮 */
+.ccbm-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #A1A1AA;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+  z-index: 2;
+}
+.ccbm-close:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+
+/* 内容区 */
+.ccbm-body { padding: 32px 28px 28px; }
+
+/* 产品标识 */
+.ccbm-product-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 100px;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: #22D3EE;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+/* 标题 */
+.ccbm-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin: 0 0 6px;
+  background: linear-gradient(135deg, #6366F1, #22D3EE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+.ccbm-subtitle {
+  color: #71717A;
+  font-size: 13px;
+  margin: 0 0 22px;
+  line-height: 1.5;
+}
+
+/* 步骤指示 */
+.ccbm-steps {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+.ccbm-step {
+  flex: 1;
+  height: 3px;
+  background: #27272A;
+  border-radius: 2px;
+  transition: background .3s;
+}
+.ccbm-step.ccbm-active { background: linear-gradient(90deg, #6366F1, #22D3EE); }
+.ccbm-step.ccbm-done   { background: #22D3EE; }
+
+/* 输入框 */
+.ccbm-input {
+  width: 100%;
+  padding: 14px 16px;
+  background: #1C1C21;
+  border: 1px solid #27272A;
+  border-radius: 10px;
+  color: #E4E4E7;
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color .2s;
+}
+.ccbm-input:focus {
+  outline: none;
+  border-color: #6366F1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+.ccbm-input::placeholder { color: #52525B; }
+
+.ccbm-label {
+  display: block;
+  color: #A1A1AA;
+  font-size: 12px;
+  margin-bottom: 8px;
+  margin-top: 14px;
+}
+.ccbm-label:first-child { margin-top: 0; }
+
+/* 主按钮 */
+.ccbm-submit {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6366F1 0%, #22D3EE 100%);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin-top: 22px;
+  transition: all .2s;
+  box-shadow: 0 4px 18px rgba(99, 102, 241, 0.3);
+}
+.ccbm-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.45);
+}
+.ccbm-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #27272A;
+  box-shadow: none;
+}
+
+/* 通道选择 */
+.ccbm-channels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+.ccbm-channel {
+  padding: 14px 12px;
+  background: #1C1C21;
+  border: 1px solid #27272A;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: all .2s;
+}
+.ccbm-channel:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  background: #1F1F26;
+}
+.ccbm-channel.ccbm-selected {
+  border-color: #6366F1;
+  background: rgba(99, 102, 241, 0.08);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+.ccbm-channel-icon { font-size: 22px; margin-bottom: 4px; }
+.ccbm-channel-name { color: #E4E4E7; font-size: 13px; font-weight: 600; }
+.ccbm-channel-desc { color: #71717A; font-size: 11px; margin-top: 2px; }
+.ccbm-channel.ccbm-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* QR 码 */
+.ccbm-qr-wrap {
+  background: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  display: inline-block;
+  margin: 8px 0 16px;
+}
+.ccbm-qr-wrap img { display: block; width: 200px; height: 200px; }
+
+/* 钱包地址 */
+.ccbm-wallet {
+  background: #1C1C21;
+  border: 1px solid #27272A;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ccbm-wallet-addr {
+  flex: 1;
+  color: #22D3EE;
+  font-family: 'SF Mono', Monaco, monospace;
+  font-size: 12px;
+  word-break: break-all;
+}
+.ccbm-copy-btn {
+  padding: 6px 10px;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 6px;
+  color: #A5B4FC;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .2s;
+}
+.ccbm-copy-btn:hover { background: rgba(99, 102, 241, 0.25); }
+
+/* 倒计时 */
+.ccbm-countdown {
+  text-align: center;
+  color: #F59E0B;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+/* 加载动画 */
+.ccbm-spinner {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #22D3EE;
+  border-radius: 50%;
+  animation: ccpay-spin .8s linear infinite;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+@keyframes ccpay-spin { to { transform: rotate(360deg); } }
+
+/* 状态提示 */
+.ccbm-status {
+  text-align: center;
+  padding: 20px 0;
+  color: #A1A1AA;
+  font-size: 13px;
+}
+
+/* 激活码展示 */
+.ccbm-code-box {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(34, 211, 238, 0.08));
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  border-radius: 14px;
+  padding: 24px 20px;
+  text-align: center;
+  margin: 16px 0;
+}
+.ccbm-code-label {
+  color: #71717A;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.ccbm-code {
+  color: #22D3EE;
+  font-size: 22px;
+  font-weight: 800;
+  font-family: 'SF Mono', Monaco, monospace;
+  letter-spacing: 2px;
+  word-break: break-all;
+}
+.ccbm-code-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.ccbm-code-btn {
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #6366F1, #22D3EE);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform .2s;
+}
+.ccbm-code-btn:hover { transform: translateY(-1px); }
+.ccbm-code-btn.ccbm-secondary {
+  background: #27272A;
+  color: #E4E4E7;
+  border: 1px solid #3F3F46;
+}
+
+/* 邮件提示 */
+.ccbm-email-tip {
+  background: rgba(34, 211, 238, 0.06);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #67E8F9;
+  font-size: 12px;
+  margin-top: 14px;
+  text-align: center;
+}
+
+/* 错误信息 */
+.ccbm-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #FCA5A5;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+/* 响应式 */
+@media (max-width: 480px) {
+  .ccbm-body { padding: 28px 20px 24px; }
+  .ccbm-title { font-size: 20px; }
+  .ccbm-channels { grid-template-columns: 1fr; }
+  .ccbm-qr-wrap img { width: 180px; height: 180px; }
+  .ccbm-code { font-size: 18px; }
+}
