@@ -7,9 +7,9 @@
  */
 
 // ── 虎皮椒（微信/支付宝 WAP 收银台）──
-// 留空则禁用人民币通道；填入后自动启用
-const XUNHU_APPID    = '';  // 虎皮椒商户 appid
-const XUNHU_APPKEY   = '';  // 虎皮椒商户 appKey
+// 凭据来源：tiantian-poker-tournament/server/payment-svc/index.js
+const XUNHU_APPID    = '201906182246';
+const XUNHU_APPKEY   = '5995adfd45da21ea5a70c086df023c22';
 const XUNHU_API_URL  = 'https://api.xunhupay.com/payment/do.html';
 const XUNHU_NOTIFY_URL = 'https://clawclaw.tech/license/license-server.php?action=xunhu-notify';
 const XUNHU_RETURN_URL = '';  // 支付完成跳转地址，空则不跳
