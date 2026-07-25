@@ -44,10 +44,10 @@ const PRODUCTS = [
     'fall-detect'      => ['name' => '跌倒守护',        'price' => 268, 'priceUsdt' => 38, 'prefix' => 'FD', 'apk' => '/apk/fall-detect.apk',         'desc' => 'AI跌倒检测，自动短信告警，老人安全监护'],
     'elder-care'       => ['name' => '安巢 AnNest',     'price' => 268, 'priceUsdt' => 38, 'prefix' => 'AN', 'apk' => '/apk/elderguard.apk',          'desc' => '跌倒检测+语音求救+静止告警，三重守护老人'],
     'pedestrian-capture' => ['name' => '单点抓拍',      'price' => 128, 'priceUsdt' => 18, 'prefix' => 'PC', 'apk' => '/apk/pedestrian-capture.apk',  'desc' => '单点行人抓拍识别，社区安防'],
-    'dog-home'         => ['name' => '狗狗在家 Pro',    'price' => 68,  'priceUsdt' => 10, 'prefix' => 'DH', 'apk' => '/apk/dog-home.apk',            'desc' => 'AI狂吠识别+焦躁感知+自动安抚，24h守护分离焦虑'],
-    'phone-nas'        => ['name' => '旧机NAS',         'price' => 35,  'priceUsdt' => 5,  'prefix' => 'PN', 'apk' => '/apk/phone-nas.apk',           'desc' => '旧手机变NAS服务器，Web文件管理+WebDAV挂载'],
+    'dog-home'         => ['name' => '狗狗在家 Pro',    'price' => 99,  'priceUsdt' => 14, 'prefix' => 'DH', 'apk' => '/apk/dog-home.apk',            'desc' => 'AI狂吠识别+焦躁感知+自动安抚，24h守护分离焦虑'],
+    'phone-nas'        => ['name' => '旧机NAS',         'price' => 99,  'priceUsdt' => 14, 'prefix' => 'PN', 'apk' => '/apk/phone-nas.apk',           'desc' => '旧手机变NAS服务器，Web文件管理+WebDAV挂载'],
     'smart-bridge'     => ['name' => 'Smart Bridge Pro','price' => 499, 'priceUsdt' => 70, 'prefix' => 'SB', 'apk' => '/apk/smart-bridge.apk',        'desc' => '6节点SSH桥接 · Android/macOS/Windows 全平台'],
-    'plate-recognizer' => ['name' => '危险车辆预警',    'price' => 35,  'priceUsdt' => 5,  'prefix' => 'PR', 'apk' => '/apk/plate-recognizer.apk',    'desc' => 'Android车牌OCR识别，指定车牌实时搜索告警'],
+    'plate-recognizer' => ['name' => '危险车辆预警',    'price' => 99,  'priceUsdt' => 14, 'prefix' => 'PR', 'apk' => '/apk/plate-recognizer.apk',    'desc' => 'Android车牌OCR识别，指定车牌实时搜索告警'],
     'voice-memo'       => ['name' => '密探 MiBao',      'price' => 99,  'priceUsdt' => 14, 'prefix' => 'VM', 'apk' => '/apk/voice-memo.apk',          'desc' => '远程录音转文字 · 邮件回传 · Whisper 本地转录'],
 ];
 
