@@ -20,7 +20,7 @@ a{color:inherit;text-decoration:none}
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(10,10,11,.78);border-bottom:1px solid var(--border)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:1080px;margin:0 auto;padding:0 24px}
 .nav-logo{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;letter-spacing:.5px;color:var(--text-2)}
-.nav-logo .icon{font-size:22px}
+.nav-logo .icon{width:28px;height:28px;border-radius:7px;display:block}
 .nav-logo span{color:var(--text)}
 .nav-cta{padding:8px 18px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#0A0A0B!important;font-size:13px;font-weight:700;transition:all .3s}
 .nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(14,165,233,.35)}
@@ -43,7 +43,7 @@ a{color:inherit;text-decoration:none}
 
 .scene{display:flex;justify-content:center;margin-bottom:80px}
 .scene-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:40px 56px;display:flex;align-items:center;gap:48px;max-width:700px;width:100%}
-.scene-icon{font-size:72px;line-height:1;animation:float 3s ease-in-out infinite}
+.scene-icon{width:96px;height:96px;border-radius:24px;display:block;animation:float 3s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 .scene-text h3{font-size:20px;font-weight:700;margin-bottom:8px}
 .scene-steps{display:flex;gap:16px;margin-top:16px}
@@ -127,7 +127,7 @@ a{color:inherit;text-decoration:none}
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="/" class="nav-logo"><span class="icon">🚨</span> <span>危险车辆预警</span></a>
+    <a href="/" class="nav-logo"><img src="/assets/logo-plate-recognizer.png" alt="危险车辆预警" class="icon"> <span>危险车辆预警</span></a>
     <a href="/apk/plate-recognizer.apk" class="nav-cta">免费下载</a>
   </div>
 </nav>
@@ -149,7 +149,7 @@ a{color:inherit;text-decoration:none}
 <div class="container">
   <div class="scene">
     <div class="scene-card">
-      <div class="scene-icon">📷➡️🚗</div>
+      <img src="/assets/logo-plate-recognizer.png" alt="危险车辆预警 App" class="scene-icon">
       <div class="scene-text">
         <h3>摄像头 → 车牌识别 → 告警</h3>
         <div class="scene-steps">
